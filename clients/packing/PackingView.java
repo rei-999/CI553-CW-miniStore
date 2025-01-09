@@ -17,6 +17,7 @@ import java.util.Observer;
 public class PackingView implements Observer
 {
   private static final String PACKED = "Packed";
+  private static final String CHANGE_COLOR = "BG Col";
 
   private static final int H = 300;       // Height of window pixels
   private static final int W = 400;       // Width  of window pixels
@@ -26,6 +27,8 @@ public class PackingView implements Observer
   private final JTextArea   theOutput  = new JTextArea();
   private final JScrollPane theSP      = new JScrollPane();
   private final JButton     theBtPack= new JButton( PACKED );
+  private final JButton theBtChangeColor = new JButton(CHANGE_COLOR);
+  
  
   private OrderProcessing theOrder     = null;
   
@@ -52,6 +55,7 @@ public class PackingView implements Observer
     cp.setLayout(null);                             // No layout manager
     rootWindow.setSize( W, H );                     // Size of Window
     rootWindow.setLocation( x, y );
+    cp.setBackground(Color.BLUE);
     
     Font f = new Font("Monospaced",Font.PLAIN,12);  // Font f is
     
@@ -63,6 +67,17 @@ public class PackingView implements Observer
     theBtPack.addActionListener(                   // Call back code
       e -> cont.doPacked() );
     cp.add( theBtPack );                          //  Add to canvas
+    
+    theBtChangeColor.setBounds(16, 25 + 60 * 3, 80, 40); // Change Color button
+    theBtChangeColor.addActionListener(e -> {
+        Color randomColor = new Color(
+            (int) (Math.random() * 255),
+            (int) (Math.random() * 255),
+            (int) (Math.random() * 255)
+        );
+        cp.setBackground(randomColor);
+    });
+    cp.add(theBtChangeColor);
 
     theAction.setBounds( 110, 25 , 270, 20 );       // Message area
     theAction.setText( "" );                        // Blank

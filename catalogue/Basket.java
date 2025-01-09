@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Formatter;
 import java.util.Locale;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * A collection of products,
@@ -74,17 +76,25 @@ public class Basket extends ArrayList<Product> implements Serializable
     if ( theOrderNum != 0 )
       fr.format( "Order number: %03d\n", theOrderNum );
       
-    if ( this.size() > 0 )
-    {
-      for ( Product pr: this )
-      {
-        int number = pr.getQuantity();
+    if ( this.size() > 0 ) {
+    	Map<String, Product> productMap = new TreeMap<>();
+    	
+      for ( Product pr: this ) {
+    	  String productNum = pr.getProductNum();
+      if (productMap.containsKey(productNum)){
+    	  Product existingProduct = productMap.get(productNum);
+    	  existingProduct.setQuantity(existingProduct.getQuantity() + pr.getQuantity());
+      }else {
+    	  productMap.put(productNum, new Product(pr.getProductNum(), pr.getDescription(), pr.getPrice(), pr.getQuantity()));
+      }
+    }
+    for (Product pr : productMap.values()) {
         fr.format("%-7s",       pr.getProductNum() );
         fr.format("%-14.14s ",  pr.getDescription() );
-        fr.format("(%3d) ",     number );
-        fr.format("%s%7.2f",    csign, pr.getPrice() * number );
+        fr.format("(%3d) ",     pr.getQuantity() );
+        fr.format("%s%7.2f",    csign, pr.getPrice() * pr.getQuantity() );
         fr.format("\n");
-        total += pr.getPrice() * number;
+        total += pr.getPrice() * pr.getQuantity();
       }
       fr.format("----------------------------\n");
       fr.format("Total                       ");
@@ -94,3 +104,4 @@ public class Basket extends ArrayList<Product> implements Serializable
     return sb.toString();
   }
 }
+

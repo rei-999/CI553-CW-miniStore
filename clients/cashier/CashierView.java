@@ -22,6 +22,8 @@ public class CashierView implements Observer
   private static final String CHECK  = "Check";
   private static final String BUY    = "Buy";
   private static final String BOUGHT = "Bought/Pay";
+  private static final String CHANGE_COLOR = "BG Col";
+
 
   private final JLabel      pageTitle  = new JLabel();
   private final JLabel      theAction  = new JLabel();
@@ -31,7 +33,8 @@ public class CashierView implements Observer
   private final JButton     theBtCheck = new JButton( CHECK );
   private final JButton     theBtBuy   = new JButton( BUY );
   private final JButton     theBtBought= new JButton( BOUGHT );
-
+  private final JButton theBtChangeColor = new JButton(CHANGE_COLOR);
+  
   private StockReadWriter theStock     = null;
   private OrderProcessing theOrder     = null;
   private CashierController cont       = null;
@@ -59,6 +62,7 @@ public class CashierView implements Observer
     cp.setLayout(null);                             // No layout manager
     rootWindow.setSize( W, H );                     // Size of Window
     rootWindow.setLocation( x, y );
+    cp.setBackground(Color.BLUE);
 
     Font f = new Font("Monospaced",Font.PLAIN,12);  // Font f is
 
@@ -80,6 +84,17 @@ public class CashierView implements Observer
     theBtBought.addActionListener(                  // Call back code
       e -> cont.doBought() );
     cp.add( theBtBought );                          //  Add to canvas
+    
+    theBtChangeColor.setBounds(16, 25 + 60 * 2, 80, 40); // Change Color button
+    theBtChangeColor.addActionListener(e -> {
+        Color randomColor = new Color(
+            (int) (Math.random() * 255),
+            (int) (Math.random() * 255),
+            (int) (Math.random() * 255)
+        );
+        cp.setBackground(randomColor);
+    });
+    cp.add(theBtChangeColor);
 
     theAction.setBounds( 110, 25 , 270, 20 );       // Message area
     theAction.setText( "" );                        // Blank
