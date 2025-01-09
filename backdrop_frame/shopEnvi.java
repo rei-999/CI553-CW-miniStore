@@ -18,11 +18,11 @@ public class shopEnvi {
         shopFrame.setLocationRelativeTo(null); // Center the shop window
 
         // Change background color to black
-        shopFrame.getContentPane().setBackground(Color.BLACK);
+        shopFrame.getContentPane().setBackground(Color.LIGHT_GRAY);
 
         // Add some components to the shop window
         JPanel panel = new JPanel();
-        panel.setBackground(Color.BLACK); // Set panel background to black
+        panel.setBackground(Color.LIGHT_GRAY); // Set panel background to black
         panel.setLayout(new FlowLayout());
         JLabel label = new JLabel("Welcome to the Shop!");
         label.setForeground(Color.WHITE); // Set text color to white for visibility

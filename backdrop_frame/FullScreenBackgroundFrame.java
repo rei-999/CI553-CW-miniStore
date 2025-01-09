@@ -17,7 +17,7 @@ public class FullScreenBackgroundFrame {
         
         // Set the frame to be non-interactive and always in the background
         frame.setUndecorated(true); // Remove window decorations like title bar
-        frame.setOpacity(0.7f); // Optional: make the frame semi-transparent
+        frame.setOpacity(1f); // Optional: make the frame semi-transparent
         frame.setAlwaysOnTop(false); // Make sure it stays behind other windows
         
         // Set the frame's location to the top-left corner (0,0)
